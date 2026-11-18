@@ -31,6 +31,12 @@ namespace BugTracker.Api.Data
                 .HasForeignKey(t => t.AssigneeId)
                 .OnDelete(DeleteBehavior.SetNull);
 
+            modelBuilder.Entity<Ticket>()
+                .HasOne(t => t.Project)
+                .WithMany(p => p.Tickets)
+                .HasForeignKey(t => t.ProjectId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<DeadlineChangeRequest>()
                 .HasOne(d => d.RequestedBy)
                 .WithMany(u => u.DeadlineRequestsWhereAuthor)
@@ -43,6 +49,12 @@ namespace BugTracker.Api.Data
                 .HasForeignKey(d => d.ReviewerId)
                 .OnDelete(DeleteBehavior.SetNull);
 
+            modelBuilder.Entity<DeadlineChangeRequest>()
+                .HasOne(d => d.Ticket)
+                .WithMany(t => t.DeadlineChangeRequests)
+                .HasForeignKey(d => d.TicketId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<Fix>()
                 .HasOne(f => f.Author)
                 .WithMany(u => u.FixesWhereAuthor)
@@ -54,6 +66,12 @@ namespace BugTracker.Api.Data
                 .WithMany(u => u.FixesWhereAssignee)
                 .HasForeignKey(f => f.TesterId)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Fix>()
+                .HasOne(f => f.Ticket)
+                .WithMany(t => t.Fixes)
+                .HasForeignKey(f => f.TicketId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ProjectMember>()
                 .HasKey(pm => new { pm.ProjectId, pm.UserId });
@@ -101,7 +119,7 @@ namespace BugTracker.Api.Data
                 .HasOne(n => n.Ticket)
                 .WithMany(t => t.Notifications)
                 .HasForeignKey(n => n.TicketId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

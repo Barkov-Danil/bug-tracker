@@ -14,7 +14,7 @@ namespace BugTracker.Api.Models.Entities
         public DateTimeOffset Deadline { get; set; }
 
         public Guid ProjectId { get; set; }
-        public Project? Project { get; set; }
+        public Project Project { get; set; } = null!;
         public ICollection<Fix> Fixes { get; set; } = new List<Fix>();
         public ICollection<DeadlineChangeRequest> DeadlineChangeRequests { get; set; } =
             new List<DeadlineChangeRequest>();
