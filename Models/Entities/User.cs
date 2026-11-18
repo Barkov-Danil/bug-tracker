@@ -25,5 +25,7 @@
             = new List<Fix>();
         public ICollection<Fix> FixesWhereAssignee { get; set; }
             = new List<Fix>();
+        public ICollection<Comment> CommentsWhereAuthor { get; set; }
+            = new List<Comment>();
     }
 }

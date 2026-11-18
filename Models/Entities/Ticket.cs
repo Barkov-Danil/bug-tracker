@@ -22,5 +22,6 @@ namespace BugTracker.Api.Models.Entities
         public User Author { get; set; } = null!;
         public Guid? AssigneeId { get; set; }
         public User? Assignee { get; set; }
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }
