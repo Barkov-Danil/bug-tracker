@@ -12,6 +12,8 @@ namespace BugTracker.Api.Data
         public DbSet<Fix> Fixes { get; set; }
         public DbSet<DeadlineChangeRequest> DeadlineChangeRequests { get; set; }
         public DbSet<ProjectMember> ProjectMembers { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -63,10 +65,43 @@ namespace BugTracker.Api.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ProjectMember>()
-            .HasOne(pm => pm.User)
-            .WithMany(u => u.ProjectMemberships)
-            .HasForeignKey(pm => pm.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+                .HasOne(pm => pm.User)
+                .WithMany(u => u.ProjectMemberships)
+                .HasForeignKey(pm => pm.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.Ticket)
+                .WithMany(t => t.Comments)
+                .HasForeignKey(c => c.TicketId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.Author)
+                .WithMany(u => u.CommentsWhereAuthor)
+                .HasForeignKey(c => c.AuthorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<NotificationRecipient>()
+                .HasKey(nr => new { nr.NotificationId, nr.UserId });
+
+            modelBuilder.Entity<NotificationRecipient>()
+                .HasOne(nr => nr.Notification)
+                .WithMany(n => n.Recipients)
+                .HasForeignKey(nr => nr.NotificationId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<NotificationRecipient>()
+                .HasOne(nr => nr.User)
+                .WithMany()
+                .HasForeignKey(nr => nr.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Notification>()
+                .HasOne(n => n.Ticket)
+                .WithMany(t => t.Notifications)
+                .HasForeignKey(n => n.TicketId)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

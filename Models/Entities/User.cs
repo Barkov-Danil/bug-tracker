@@ -27,5 +27,7 @@
             = new List<Fix>();
         public ICollection<Comment> CommentsWhereAuthor { get; set; }
             = new List<Comment>();
+        public ICollection<NotificationRecipient> ReceivedNotifications { get; set; }
+            = new List<NotificationRecipient>();
     }
 }
