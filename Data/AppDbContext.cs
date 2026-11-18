@@ -11,6 +11,7 @@ namespace BugTracker.Api.Data
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Fix> Fixes { get; set; }
         public DbSet<DeadlineChangeRequest> DeadlineChangeRequests { get; set; }
+        public DbSet<ProjectMember> ProjectMembers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -47,10 +48,25 @@ namespace BugTracker.Api.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Fix>()
-                .HasOne(f => f.Assignee)
+                .HasOne(f => f.Tester)
                 .WithMany(u => u.FixesWhereAssignee)
                 .HasForeignKey(f => f.TesterId)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<ProjectMember>()
+                .HasKey(pm => new { pm.ProjectId, pm.UserId });
+
+            modelBuilder.Entity<ProjectMember>()
+                .HasOne(pm => pm.Project)
+                .WithMany(p => p.Members)
+                .HasForeignKey(pm => pm.ProjectId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<ProjectMember>()
+            .HasOne(pm => pm.User)
+            .WithMany(u => u.ProjectMemberships)
+            .HasForeignKey(pm => pm.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -19,6 +19,8 @@
             = new List<Ticket>();
         public ICollection<Project> ProjectsWhereAuthor { get; set; }
             = new List<Project>();
+        public ICollection<ProjectMember> ProjectMemberships { get; set; }
+            = new List<ProjectMember>();
         public ICollection<Fix> FixesWhereAuthor { get; set; }
             = new List<Fix>();
         public ICollection<Fix> FixesWhereAssignee { get; set; }

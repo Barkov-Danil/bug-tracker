@@ -10,5 +10,7 @@
         public DateTimeOffset? ClosedAt { get; set; }
 
         public ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
+        public ICollection<ProjectMember> Members { get; set; }
+            = new List<ProjectMember>();
     }
 }
