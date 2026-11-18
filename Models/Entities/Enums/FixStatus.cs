@@ -2,6 +2,7 @@
 {
     public enum FixStatus
     {
+        Pending,
         Accepted,
         Rejected
     }
