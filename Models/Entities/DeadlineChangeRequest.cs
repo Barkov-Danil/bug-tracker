@@ -13,7 +13,9 @@ namespace BugTracker.Api.Models.Entities
         public Guid TicketId { get; set; }
         public Ticket Ticket { get; set; } = null!;
 
-        public Guid UserId { get; set; }
-        public User User { get; set; } = null!;
+        public Guid RequestedById { get; set; }
+        public User RequestedBy { get; set; } = null!;
+        public Guid ReviewerId { get; set; }
+        public User Reviewer { get; set; } = null!;
     }
 }

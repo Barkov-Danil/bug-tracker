@@ -16,5 +16,11 @@ namespace BugTracker.Api.Models.Entities
         public Guid ProjectId { get; set; }
         public Project? Project { get; set; }
         public ICollection<Fix> Fixes { get; set; } = new List<Fix>();
+        public ICollection<DeadlineChangeRequest> DeadlineChangeRequests { get; set; } =
+            new List<DeadlineChangeRequest>();
+        public Guid AuthorId { get; set; }
+        public User Author { get; set; } = null!;
+        public Guid? AssigneeId { get; set; }
+        public User? Assignee { get; set; }
     }
 }
