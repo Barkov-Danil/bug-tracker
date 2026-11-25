@@ -4,9 +4,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 // сделать на фронте тикающий таймер с оставшимся временем до дедлайна
-// подумать над приглашением в проект
+// подумать над приглашением в проект -- просто эндпоинт
 // добавить на ВИ изменить комментарий
+// проекты с не налл временем закрытия отображаются в архиве
+// изменить эндпоинт для проекта getUserProjects: добавить jwt для id вместо параметра
 // если Данил согласится, добавить древовидную структуру для комментариев(с ответами на комменты)
+// сейчас отключен FlyWay(миграции)
 @SpringBootApplication
 public class BugTrackerApiApplication {
 
