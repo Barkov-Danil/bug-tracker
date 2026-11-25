@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 // изменить эндпоинт для проекта getUserProjects: добавить jwt для id вместо параметра
 // если Данил согласится, добавить древовидную структуру для комментариев(с ответами на комменты)
 // сейчас отключен FlyWay(миграции)
+// сейчас отключен Spring Security (файл config/SecurityConfig)
 @SpringBootApplication
 public class BugTrackerApiApplication {
 
